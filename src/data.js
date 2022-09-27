@@ -2,7 +2,7 @@ const data = {
     products: [
         {
             name: 'Anastasia',
-            slug: 'gold-hoops-anastaia',
+            slug: 'gold-hoops-anastasia',
             category: 'Earrings',
             image:'/earrings/gold-hoop-anastasia.jpg',
             price: 60,
