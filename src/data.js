@@ -188,17 +188,6 @@ const data = {
             description: 'Gold Necklace'
         },
         {
-            name: 'Eliza',
-            slug: 'gold-bracelet-eliza',
-            category: 'Necklaces',
-            image:'/necklaces/gold-necklace-eliza.jpg',
-            price: 55,
-            countInStock: 100,
-            rating: 4.1,
-            numReviews: 10,
-            description: 'Gold Necklace'
-        },
-        {
             name: 'Cassie',
             slug: 'gold-ring-cassie',
             category: 'Necklaces',
