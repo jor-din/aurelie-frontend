@@ -1,14 +1,17 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 function NavBar() {
   return (
-    <nav>
-        <Link to='/'>Home</Link>
-        <Link to='/shop'>Shop</Link>
-        <Link to="/signin">Sign In</Link>
-        <Link to="/cart">Cart</Link>
-    </nav>
-  )
+    <Navbar bg="light">
+      <Container>
+        <LinkContainer to="/">
+          <Navbar.Brand>Aurelie</Navbar.Brand>
+        </LinkContainer>
+      </Container>
+    </Navbar>
+  );
 }
 
-export default NavBar
+export default NavBar;

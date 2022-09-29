@@ -12,7 +12,11 @@ code {
     monospace;
 }
 main {
-  padding: 1rem;
+  flex: 1;
+}
+
+.site-container {
+  min-height: 100vh;
 }
 
 .products {
@@ -33,4 +37,8 @@ main {
 }
 .product-info {
   padding: 1rem;
+}
+
+.rating span {
+  color: #F2B880;
 }
