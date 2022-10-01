@@ -6,6 +6,7 @@ import { useReducer } from "react";
 import logger from "use-reducer-logger";
 import { Row, Col } from "react-bootstrap";
 import Product from "../../components/Product/Product";
+import { Helmet } from "react-helmet-async";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -43,6 +44,9 @@ function Home() {
 
   return (
     <div>
+      <Helmet>
+        <title>Aurelie - Find Your Golden Hour</title>
+      </Helmet>
       <h1>Featured Products</h1>
       <div className="products">
         {loading ? (

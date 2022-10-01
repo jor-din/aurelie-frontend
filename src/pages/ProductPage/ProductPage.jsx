@@ -5,7 +5,7 @@ import * as productsService from "../../services/productsService";
 // import axios from "axios";
 import { Badge, Button, ListGroup, Row, Col, Card } from 'react-bootstrap';
 import Rating from '../../components/Rating/Rating';
-
+import { Helmet } from "react-helmet-async";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -60,9 +60,9 @@ function ProductPage(props) {
         <Col md={3}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <Row>
+              <Helmet>
                 <title>{product.name}</title>
-              </Row>
+              </Helmet>
               <h1>{product.name}</h1>
             </ListGroup.Item>
             <ListGroup.Item>
