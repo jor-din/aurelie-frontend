@@ -42,3 +42,12 @@ main {
 .rating span {
   color: #F2B880;
 }
+
+.img-large{
+  height:600px;
+  max-width: 100%;
+}
+.img-col {
+  display: flex;
+  justify-content: center;
+}

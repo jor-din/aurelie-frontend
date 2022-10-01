@@ -30,8 +30,8 @@ function Home() {
     const fetchAllProducts = async () => {
       dispatch({ type: "FETCH_REQUEST" });
       try {
-        const productData = await productsService.allProducts();
-        dispatch({ type: "FETCH_SUCCESS", payload: productData });
+        const allProductsData = await productsService.allProducts();
+        dispatch({ type: "FETCH_SUCCESS", payload: allProductsData });
       } catch {
         dispatch({ type: "FETCH_FAIL", payload: error.message });
       }

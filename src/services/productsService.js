@@ -5,5 +5,11 @@ async function allProducts(){
     const res = await fetch(BASE_URL)
     return res.json()
 }
+async function productInfo(slug) {
+    const res = await fetch(`${BASE_URL}/slug/${slug}/`, {
+        method: 'GET'
+    })
+    return res.json(slug)
+}
 
-export { allProducts }
+export { allProducts, productInfo }

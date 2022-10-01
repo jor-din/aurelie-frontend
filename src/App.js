@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Home from './pages/Home/Home.jsx'
-import Product from './pages/ProductInfo/ProductInfo';
+import ProductPage from './pages/ProductPage/ProductPage';
 import Footer from './components/Footer/Footer';
 import * as authService from "./services/authService"
 import MainPage from './components/MainPage/MainPage';
+import { Container } from 'react-bootstrap';
 
 
 const App = () => {
@@ -30,11 +31,13 @@ const App = () => {
       <NavBar user={user} handleLogout={handleLogout} handleSignupOrLogin={handleSignupOrLogin} />
       </header>
       <main>
-      <MainPage />
+      {/* <MainPage /> */}
+      <Container className='mt-5'>
       <Routes>
         <Route path='/' element={<Home user={user}/>}/>
-        <Route path='/product/:slug' element={<Product />}/>
+        <Route path='/product/:slug' element={<ProductPage />}/>
       </Routes>
+      </Container>
       </main>
       <footer>
         <Footer />
