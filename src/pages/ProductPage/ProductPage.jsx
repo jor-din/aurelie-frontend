@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useReducer } from "react";
 import * as productsService from "../../services/productsService";
-// import axios from "axios";
 import { Badge, Button, ListGroup, Row, Col, Card } from 'react-bootstrap';
 import Rating from '../../components/Rating/Rating';
 import { Helmet } from "react-helmet-async";
+import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
+import MessageBox from "../../components/MessageBox/MessageBox";
+import { getError } from "../../services/utils";
+import { Store } from "../../Store";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -23,6 +26,24 @@ function ProductPage(props) {
   const params = useParams();
   const { slug } = params;
 
+  const {state, dispatch: ctxDispatch} = useContext(Store)
+  const {cart} = state
+
+  const addToCartHandler = async () => {
+   const existItem = cart.cartItems.find((x) => x._id === product._id)
+   const quantity = existItem ? existItem.quantity + 1 : 1;
+   const productDetails  = await productsService.productId(product._id);
+  
+   if (productDetails.countInStock < quantity) {
+    window.alert('Sorry. Product is out of stock');
+    return;
+  }
+  ctxDispatch({
+    type: 'CART_ADD_ITEM',
+    payload: { ...product, quantity },
+  });
+  }
+
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: [],
     loading: true,
@@ -36,17 +57,19 @@ function ProductPage(props) {
         const productData = await productsService.productInfo(slug);
         
       dispatch({ type: "FETCH_SUCCESS", payload: productData});
-      } catch (err) {
-        dispatch({ type: "FETCH_FAIL", payload: err.message });
+    } catch (err) {
+      console.log('++++++')
+      dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
     fetchData();
   }, [slug]);
+
   
   return loading ? (
-    <div>Loading...</div>
+    <LoadingScreen />
   ) : error ? (
-    <div>{error}</div>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
       <Row>
@@ -103,7 +126,7 @@ function ProductPage(props) {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button variant="primary">Add to Cart</Button>
+                      <Button onClick={addToCartHandler} variant="primary">Add to Cart</Button>
                     </div>
                   </ListGroup.Item>
                 )}

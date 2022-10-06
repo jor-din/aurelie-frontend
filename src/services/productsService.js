@@ -6,10 +6,17 @@ async function allProducts(){
     return res.json()
 }
 async function productInfo(slug) {
-    const res = await fetch(`${BASE_URL}/slug/${slug}/`, {
+    const res = await fetch(`${BASE_URL}/slug/${slug}`, {
         method: 'GET'
     })
-    return res.json(slug)
+    return res.json()
 }
 
-export { allProducts, productInfo }
+async function productId(id) {
+    const res = await fetch(`${BASE_URL}/${id}`, {
+        method: 'GET'
+    })
+    return res.json()
+}
+
+export { allProducts, productInfo, productId }
