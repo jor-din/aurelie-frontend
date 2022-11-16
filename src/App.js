@@ -7,6 +7,7 @@ import ProductPage from './pages/ProductPage/ProductPage';
 import Footer from './components/Footer/Footer';
 import * as authService from "./services/authService"
 import MainPage from './components/MainPage/MainPage';
+import Cart from './pages/Cart/Cart';
 import { Container } from 'react-bootstrap';
 
 
@@ -36,6 +37,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home user={user}/>}/>
         <Route path='/product/:slug' element={<ProductPage />}/>
+        <Route path='/cart' element={<Cart />}></Route>
       </Routes>
       </Container>
       </main>

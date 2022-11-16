@@ -47,7 +47,12 @@ main {
   height:600px;
   max-width: 100%;
 }
+
 .img-col {
   display: flex;
   justify-content: center;
+}
+
+.img-thumbnail {
+  height: 80px;
 }

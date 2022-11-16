@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useReducer } from "react";
 import * as productsService from "../../services/productsService";
 import { Badge, Button, ListGroup, Row, Col, Card } from 'react-bootstrap';
@@ -23,6 +23,7 @@ const reducer = (state, action) => {
   }
 };
 function ProductPage() {
+  const navigate = useNavigate()
   const params = useParams();
   const { slug } = params;
 
@@ -65,6 +66,7 @@ function ProductPage() {
     type: 'CART_ADD_ITEM',
     payload: { ...product, quantity },
   });
+    navigate('/cart')
   }
 
 
