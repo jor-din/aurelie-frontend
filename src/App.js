@@ -9,6 +9,8 @@ import * as authService from "./services/authService"
 import MainPage from './components/MainPage/MainPage';
 import Cart from './pages/Cart/Cart';
 import { Container } from 'react-bootstrap';
+import LoginForm from './components/LoginForm/LoginForm';
+import SignupForm from './components/SignUpForm/SignupForm';
 
 
 const App = () => {
@@ -38,11 +40,13 @@ const App = () => {
         <Route path='/' element={<Home user={user}/>}/>
         <Route path='/product/:slug' element={<ProductPage />}/>
         <Route path='/cart' element={<Cart />}></Route>
+        <Route path='/signin' element={<LoginForm />}></Route>
+        <Route path='signup' element={<SignupForm />}></Route>
       </Routes>
       </Container>
       </main>
       <footer>
-        <Footer />
+        {/* <Footer /> */}
       </footer>
     </>
   )
