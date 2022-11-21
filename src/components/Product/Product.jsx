@@ -17,7 +17,7 @@ const Product = (props) => {
       const existItem = cartItems.find((x) => x._id === product._id);
       console.log(existItem);
       const quantity = existItem ? (existItem.quantity += 1) : 1;
-      const itemId = await productsService.itemId(item.id);
+      const itemId = await productsService.itemId(item._id);
   
       if (itemId.countInStock < quantity) {
         alert("Sorry. Product is out of stock");

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './SignupForm.module.css'
 import * as authService from '../../services/authService'
+import { Container, Form, Button } from 'react-bootstrap'
+import { Helmet } from 'react-helmet-async'
 
 const SignupForm = props => {
   const navigate = useNavigate()
@@ -19,10 +21,6 @@ const SignupForm = props => {
       ...formData,
       [e.target.name]: e.target.value,
     })
-  }
-
-  const handleChangePhoto = (evt) => {
-    setPhotoData({ photo: evt.target.files[0] })
   }
 
   const handleSubmit = async e => {
@@ -43,7 +41,31 @@ const SignupForm = props => {
   }
 
   return (
-    <form
+    <Container className='small-container'>
+    <Helmet>
+      <title>Sign Up</title>
+    </Helmet>
+    <h1 className="my-3">Sign Up</h1>
+
+    <Form>
+    <Form.Group className="mb-3" controlId="email">
+        <Form.Label>Name</Form.Label>
+        <Form.Control type="text" required />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="email">
+        <Form.Label>Email</Form.Label>
+        <Form.Control type="email" required />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="password">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" required autoComplete='off'/>
+      </Form.Group>
+      <div className="mb-3">
+        <Button type="submit">Sign Up</Button>
+      </div>
+      
+    </Form>
+    {/* <form
       autoComplete="off"
       onSubmit={handleSubmit}
       className={styles.container}
@@ -102,7 +124,8 @@ const SignupForm = props => {
           <button>Cancel</button>
         </Link>
       </div>
-    </form>
+    </form> */}
+  </Container>
   )
 }
 
