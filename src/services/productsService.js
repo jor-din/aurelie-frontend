@@ -19,4 +19,10 @@ async function productId(id) {
     return res.json()
 }
 
-export { allProducts, productInfo, productId }
+async function itemId(id) {
+    const res = await fetch(`${BASE_URL}/${id}`, {
+        method: 'GET'
+    })
+    return res.json()
+}
+export { allProducts, productInfo, productId, itemId }

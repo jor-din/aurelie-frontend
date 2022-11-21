@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useReducer } from "react";
 import * as productsService from "../../services/productsService";
-import { Badge, Button, ListGroup, Row, Col, Card } from 'react-bootstrap';
-import Rating from '../../components/Rating/Rating';
+import { Badge, Button, ListGroup, Row, Col, Card } from "react-bootstrap";
+import Rating from "../../components/Rating/Rating";
 import { Helmet } from "react-helmet-async";
 import LoadingScreen from "../../components/LoadingScreen/LoadingScreen";
 import MessageBox from "../../components/MessageBox/MessageBox";
@@ -23,54 +23,51 @@ const reducer = (state, action) => {
   }
 };
 function ProductPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
 
-  const {state, dispatch: ctxDispatch} = useContext(Store)
-  const {cart} = state
-  
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart } = state;
+
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     product: [],
     loading: true,
-    error: '',
+    error: "",
   });
-  
+
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
       try {
         const productData = await productsService.productInfo(slug);
-        
-      dispatch({ type: "FETCH_SUCCESS", payload: productData});
-    } catch (err) {
-      console.log('++++++')
-      dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
+
+        dispatch({ type: "FETCH_SUCCESS", payload: productData });
+      } catch (err) {
+        console.log("++++++");
+        dispatch({ type: "FETCH_FAIL", payload: getError(err) });
       }
     };
     fetchData();
   }, [slug]);
 
-
   const addToCartHandler = async () => {
-   const existItem = cart.cartItems.find((x) => x._id === product._id)
-   console.log(existItem)
-   const quantity = existItem ? existItem.quantity += 1 : 1;
-   const productDetails  = await productsService.productId(product._id);
-  
-   if (productDetails.countInStock < quantity) {
-    window.alert('Sorry. Product is out of stock');
-    return;
-  }
-  ctxDispatch({
-    type: 'CART_ADD_ITEM',
-    payload: { ...product, quantity },
-  });
-    navigate('/cart')
-  }
+    const existItem = cart.cartItems.find((x) => x._id === product._id);
+    console.log(existItem);
+    const quantity = existItem ? (existItem.quantity += 1) : 1;
+    const productDetails = await productsService.productId(product._id);
 
+    if (productDetails.countInStock < quantity) {
+      window.alert("Sorry. Product is out of stock");
+      return;
+    }
+    ctxDispatch({
+      type: "CART_ADD_ITEM",
+      payload: { ...product, quantity },
+    });
+    navigate("/cart");
+  };
 
-  
   return loading ? (
     <LoadingScreen />
   ) : error ? (
@@ -78,7 +75,7 @@ function ProductPage() {
   ) : (
     <div>
       <Row>
-        <Col md={6} className='img-col'>
+        <Col md={6} className="img-col">
           <img
             className="img-large"
             src={product.image}
@@ -131,7 +128,9 @@ function ProductPage() {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button onClick={addToCartHandler} variant="primary">Add to Cart</Button>
+                      <Button onClick={addToCartHandler} variant="primary">
+                        Add to Cart
+                      </Button>
                     </div>
                   </ListGroup.Item>
                 )}
