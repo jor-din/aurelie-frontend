@@ -21,7 +21,7 @@ const Cart = () => {
   } = state;
 
   const updateCartHandler = async (item, quantity) => {
-    const itemId = await productsService.itemId(item.id);
+    const itemId = await productsService.itemId(item._id);
 
     if (itemId.countInStock < quantity) {
       window.alert("Sorry. Product is out of stock");
