@@ -9,7 +9,7 @@ function NavBar() {
   const { state, dispatch: ctxDispatch } = useContext(Store)
   const { cart, userInfo } = state
   const signoutHandler = () => {
-    ctxDispatch({ type: 'USER_SIGNOUT'})
+    ctxDispatch({ type: 'USER_SIGNOUT' })
     localStorage.removeItem('userInfo')
   }
   return (
@@ -40,7 +40,7 @@ function NavBar() {
 
             <Link 
               className="dropdown-item"
-              to='#signout'
+              to='/'
               onClick={signoutHandler}
             >
               Sign Out

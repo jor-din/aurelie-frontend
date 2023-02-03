@@ -5,6 +5,7 @@ import NavBar from './components/NavBar/NavBar';
 import Home from './pages/Home/Home.jsx'
 import ProductPage from './pages/ProductPage/ProductPage';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer/Footer';
 import * as authService from "./services/authService"
 import MainPage from './components/MainPage/MainPage';
@@ -31,7 +32,7 @@ const App = () => {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer position='bottom-center' limit={1}/>
       <header>
       <NavBar user={user} handleLogout={handleLogout} handleSignupOrLogin={handleSignupOrLogin} />
       </header>
