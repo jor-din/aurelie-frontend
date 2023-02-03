@@ -52,7 +52,7 @@ function reducer(state, action) {
           return {
             ...state,
             cart: {
-              ...startTransition.cart,
+              ...state.cart,
               shippingAddress: action.payload
             }
           }
