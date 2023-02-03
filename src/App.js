@@ -13,6 +13,7 @@ import Cart from './pages/Cart/Cart';
 import { Container } from 'react-bootstrap';
 import LoginForm from './components/LoginForm/LoginForm';
 import SignupForm from './components/SignUpForm/SignupForm';
+import Shipping from './pages/Shipping/Shipping';
 
 
 const App = () => {
@@ -45,6 +46,7 @@ const App = () => {
         <Route path='/cart' element={<Cart />}></Route>
         <Route path='/signin' element={<LoginForm />}></Route>
         <Route path='signup' element={<SignupForm />}></Route>
+        <Route path='/shipping' element={<Shipping/>}/>
       </Routes>
       </Container>
       </main>
