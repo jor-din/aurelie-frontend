@@ -4,6 +4,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import NavBar from './components/NavBar/NavBar';
 import Home from './pages/Home/Home.jsx'
 import ProductPage from './pages/ProductPage/ProductPage';
+import { ToastContainer } from 'react-toastify';
 import Footer from './components/Footer/Footer';
 import * as authService from "./services/authService"
 import MainPage from './components/MainPage/MainPage';
@@ -30,6 +31,7 @@ const App = () => {
 
   return (
     <>
+      <ToastContainer />
       <header>
       <NavBar user={user} handleLogout={handleLogout} handleSignupOrLogin={handleSignupOrLogin} />
       </header>
