@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import * as authService from '../../services/authService'
+
 import { Form, Container, Button } from 'react-bootstrap'
 import { Helmet } from 'react-helmet-async'
 import * as userService from '../../services/userService'

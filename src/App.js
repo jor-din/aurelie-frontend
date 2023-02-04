@@ -14,6 +14,7 @@ import { Container } from 'react-bootstrap';
 import LoginForm from './components/LoginForm/LoginForm';
 import SignupForm from './components/SignUpForm/SignupForm';
 import ShippingAddress from './pages/Shipping/ShippingAddress';
+import PaymentMethod from './pages/PaymentMethod/PaymentMethod';
 
 
 const App = () => {
@@ -45,8 +46,9 @@ const App = () => {
         <Route path='/product/:slug' element={<ProductPage />}/>
         <Route path='/cart' element={<Cart />}></Route>
         <Route path='/signin' element={<LoginForm />}></Route>
-        <Route path='signup' element={<SignupForm />}></Route>
-        <Route path='/shipping' element={<ShippingAddress/>}/>
+        <Route path='/signup' element={<SignupForm />}></Route>
+        <Route path='/shipping' element={<ShippingAddress />}/>
+        <Route path='/payment' element={<PaymentMethod />}></Route>
       </Routes>
       </Container>
       </main>

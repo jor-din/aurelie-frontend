@@ -10,4 +10,13 @@ async function signin(email, password) {
     return res.json()
 }
 
-export { signin } 
+async function signup(name, email, password){
+    const res = await fetch(`${BASE_URL}/signup`, {
+        method: 'POST',
+        name,
+        email,
+        password,
+    })
+    return res.json()
+}
+export { signin, signup } 

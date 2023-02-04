@@ -1,132 +1,87 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import styles from './SignupForm.module.css'
-import * as authService from '../../services/authService'
-import { Container, Form, Button } from 'react-bootstrap'
-import { Helmet } from 'react-helmet-async'
+import { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import styles from "./SignupForm.module.css";
+import * as authService from "../../services/authService";
+import { Container, Form, Button } from "react-bootstrap";
+import { Helmet } from "react-helmet-async";
+import { useContext } from "react";
+import { Store } from "../../Store";
+import { toast } from "react-toastify";
+import * as userService from '../../services/userService'
+import { getError } from "../../services/utils";
+import { useEffect } from "react";
 
-const SignupForm = props => {
-  const navigate = useNavigate()
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    passwordConf: '',
-  })
-  const [photoData, setPhotoData] = useState({})
+const SignupForm = (props) => {
+  const navigate = useNavigate();
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
 
-  const handleChange = e => {
-    props.updateMessage('')
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = async e => {
-    e.preventDefault()
-    try {
-      await authService.signup(formData, photoData.photo)
-      props.handleSignupOrLogin()
-      navigate('/')
-    } catch (err) {
-      props.updateMessage(err.message)
+  const { state, dispatch: ctxDispatch } = useContext(Store)
+  const { userInfo } = state
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword){
+      toast.error('Password do not match')
+      return
     }
-  }
+    try {
+      const signupForm = await userService.signup(name, email, password)
+      ctxDispatch({ type: 'USER_SIGNIN', payload: signupForm })
+      localStorage.setItem('userInfo', JSON.stringify(signupForm))
+      navigate(redirect || '/')
+    }
+    catch(err){
+      toast.error(getError(err))
+    }
+  };
 
-  const { name, email, password, passwordConf } = formData
-
-  const isFormInvalid = () => {
-    return !(name && email && password && password === passwordConf)
-  }
+  useEffect(() => {
+    if(userInfo){
+      navigate(redirect)
+    }
+  }, [navigate, redirect, userInfo])
 
   return (
-    <Container className='small-container'>
-    <Helmet>
-      <title>Sign Up</title>
-    </Helmet>
-    <h1 className="my-3">Sign Up</h1>
+    <Container className="small-container">
+      <Helmet>
+        <title>Sign Up</title>
+      </Helmet>
+      <h1 className="my-3">Sign Up</h1>
 
-    <Form>
-    <Form.Group className="mb-3" controlId="email">
-        <Form.Label>Name</Form.Label>
-        <Form.Control type="text" required />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="email">
-        <Form.Label>Email</Form.Label>
-        <Form.Control type="email" required />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="password">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" required autoComplete='off'/>
-      </Form.Group>
-      <div className="mb-3">
-        <Button type="submit">Sign Up</Button>
-      </div>
-      
-    </Form>
-    {/* <form
-      autoComplete="off"
-      onSubmit={handleSubmit}
-      className={styles.container}
-    >
-      <div className={styles.inputContainer}>
-        <label htmlFor="name" className={styles.label}>Name</label>
-        <input
-          type="text"
-          autoComplete="off"
-          id="name"
-          value={name}
-          name="name"
-          onChange={handleChange}
-        />
-      </div>
-      <div className={styles.inputContainer}>
-        <label htmlFor="email" className={styles.label}>Email</label>
-        <input
-          type="text"
-          autoComplete="off"
-          id="email"
-          value={email}
-          name="email"
-          onChange={handleChange}
-        />
-      </div>
-      <div className={styles.inputContainer}>
-        <label htmlFor="password" className={styles.label}>Password</label>
-        <input
-          type="password"
-          autoComplete="off"
-          id="password"
-          value={password}
-          name="password"
-          onChange={handleChange}
-        />
-      </div>
-      <div className={styles.inputContainer}>
-        <label htmlFor="confirm" className={styles.label}>
-          Confirm Password
-        </label>
-        <input
-          type="password"
-          autoComplete="off"
-          id="confirm"
-          value={passwordConf}
-          name="passwordConf"
-          onChange={handleChange}
-        />
-      </div>
-      <div className={styles.inputContainer}>
-        <button disabled={isFormInvalid()} className={styles.button}>
-          Sign Up
-        </button>
-        <Link to="/">
-          <button>Cancel</button>
-        </Link>
-      </div>
-    </form> */}
-  </Container>
-  )
-}
+      <Form onSubmit={submitHandler}>
+        <Form.Group className="mb-3" controlId="name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control onChange={(e) => setName(e.target.value)} type="text" required />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="email">
+          <Form.Label>Email</Form.Label>
+          <Form.Control onChange={(e) => setEmail(e.target.value)} type="email" required />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control onChange={(e) => setPassword(e.target.value)} type="password" required autoComplete="off" />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="confirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control onChange={(e) => setConfirmPassword(e.target.value)} type="password" required autoComplete="off" />
+        </Form.Group>
+        <div className="mb-3">
+          <Button type="submit">Sign Up</Button>
+        </div>
+        <div className="mb-3">
+            Already Have An Accout? {' '}
+            <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
+        </div>
+      </Form>
+    </Container>
+  );
+};
 
-export default SignupForm
+export default SignupForm;
