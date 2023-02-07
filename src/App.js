@@ -15,7 +15,7 @@ import LoginForm from './components/LoginForm/LoginForm';
 import SignupForm from './components/SignUpForm/SignupForm';
 import ShippingAddress from './pages/Shipping/ShippingAddress';
 import PaymentMethod from './pages/PaymentMethod/PaymentMethod';
-
+import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser())
@@ -48,7 +48,9 @@ const App = () => {
         <Route path='/signin' element={<LoginForm />}></Route>
         <Route path='/signup' element={<SignupForm />}></Route>
         <Route path='/shipping' element={<ShippingAddress />}/>
-        <Route path='/payment' element={<PaymentMethod />}></Route>
+        <Route path='/payment' element={<PaymentMethod />}/>
+        <Route path='placeorder' element={<PlaceOrder />}/>
+        
       </Routes>
       </Container>
       </main>

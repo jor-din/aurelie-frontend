@@ -11,23 +11,22 @@ const PaymentMethod = () => {
   const {
     cart: { shippingAddress, paymentMethod },
   } = state;
+
   const [paymentMethodName, setPaymentMethod] = useState(
-    paymentMethod || "PayPal"
+    paymentMethod || 'PayPal'
   );
 
   useEffect(() => {
     if (!shippingAddress.address) {
-      navigate("/shipping");
+      navigate('/shipping');
     }
   }, [shippingAddress, navigate]);
-
   const submitHandler = (e) => {
     e.preventDefault();
-    ctxDispatch({ type: "SAVE_PAYMENT_METHOD", payload: paymentMethod });
-    localStorage.setItem("paymentMethod", paymentMethodName);
-    navigate("placeorder");
+    ctxDispatch({ type: 'SAVE_PAYMENT_METHOD', payload: paymentMethodName });
+    localStorage.setItem('paymentMethod', paymentMethodName);
+    navigate('/placeorder');
   };
-
   return (
     <>
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
@@ -43,9 +42,9 @@ const PaymentMethod = () => {
               id="PayPal"
               label="PayPal"
               value="PayPal"
-              checked={paymentMethodName === "Paypal"}
+              checked={paymentMethodName === 'PayPal'}
               onChange={(e) => setPaymentMethod(e.target.value)}
-            ></Form.Check>
+            />
           </div>
           <div className="mb-3">
             <Form.Check
@@ -53,9 +52,9 @@ const PaymentMethod = () => {
               id="Stripe"
               label="Stripe"
               value="Stripe"
-              checked={paymentMethodName === "Stripe"}
+              checked={paymentMethodName === 'Stripe'}
               onChange={(e) => setPaymentMethod(e.target.value)}
-            ></Form.Check>
+            />
           </div>
           <div className="mb-3">
             <Button type="submit">Continue</Button>
